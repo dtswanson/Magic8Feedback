@@ -1,0 +1,95 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        .primary-color {
+            background-color: #003D63; /* Example primary color */
+        }
+        .secondary-color {
+            background-color: #00ABE5; /* Example secondary color */
+        }
+        .accent-color {
+            background-color: #00ABE5; /* Example accent color */
+        }
+        .tag-internal {
+            background-color: #EE7203; /* Secondary color */
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .tag-external {
+            background-color: #BED200; /* Primary color */
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .card-image img {
+            max-width: 25%;
+            max-height: 300px;
+            height: auto;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+        .btn, .btn-large, .btn-small {
+            text-decoration: none;
+            color: #fff;
+            background-color: #003D63;
+        }
+        .brand-logo {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body class="">
+    <nav class="primary-color">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Recommendations</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="/add">Add Recommendation</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <div class="card-image">
+                <img src="https://www.mis-munich.de/hubfs/Logo%20Assets/MIS_Primary_RGB-digital.png" alt="MIS Primary">
+            </div>
+            <div class="card-content">
+                <span class="card-title">Recommendation</span>
+                <span id="audience-tag" class="tag-internal" style="display: inline;">Internal</span>
+                <p id="recommendation">Software -- Teams, OneNote -- Materials for classes are not unified.  </p>
+            </div>
+            <div class="card-action">
+                <button class="btn accent-color" onclick="fetchRecommendation()">Get Recommendation</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function fetchRecommendation() {
+            fetch('/recommendation')
+                .then(response => response.json())
+                .then(data => {
+                    const audienceTagElement = document.getElementById('audience-tag');
+                    const recommendationElement = document.getElementById('recommendation');
+                    if (data.recommendation) {
+                        recommendationElement.textContent = data.recommendation;
+                        audienceTagElement.textContent = data.audience === 1 ? 'Internal' : 'External';
+                        audienceTagElement.className = data.audience === 1 ? 'tag-internal' : 'tag-external';
+                        audienceTagElement.style.display = 'inline';
+                    } else {
+                        recommendationElement.textContent = 'No recommendations found';
+                        audienceTagElement.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching recommendation:', error);
+                });
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body></html>

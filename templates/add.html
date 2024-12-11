@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recommendation</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        .primary-color {
+            background-color: #003D63; /* Example primary color */
+        }
+        .secondary-color {
+            background-color: #00ABE5; /* Example secondary color */
+        }
+        .accent-color {
+            background-color: #BED200; /* Example accent color */
+        }
+        .card-image img {
+            max-width: 25%;
+            max-height: 300px;
+            height: auto;
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="primary-color">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Recommendations</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="/add">Add Recommendation</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card">
+            <div class="card-image">
+                <img src="https://www.mis-munich.de/hubfs/Logo%20Assets/MIS_Primary_RGB-digital.png" alt="MIS Primary">
+            </div>
+            <div class="card-content">
+                <span class="card-title">Add Recommendation</span>
+                <form action="/add" method="POST">
+                    <div class="input-field">
+                        <input id="data" name="data" type="text" class="validate" required>
+                        <label for="data">Recommendation</label>
+                    </div>
+                    <div class="input-field">
+                        <select id="audience" name="audience" required>
+                            <option value="" disabled selected>Choose audience</option>
+                            <option value="internal">Internal</option>
+                            <option value="external">External</option>
+                        </select>
+                        <label for="audience">Audience</label>
+                    </div>
+                    <button class="btn waves-effect waves-light accent-color" type="submit">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+</body>
+</html>
